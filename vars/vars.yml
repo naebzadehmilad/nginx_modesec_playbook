@@ -1,0 +1,4 @@
+float_ip: 172.17.71.20 
+virtual_router_id: 40
+interface: ens160
+frist_nodename: dev-nginx1
