@@ -1,0 +1,15 @@
+- name: Copy and execute script to install Nginx
+  hosts: all 
+  become: true
+  remote_user: root
+  vars_files:
+      - ../vars/vars.yml
+  tasks:
+    - name: Copy script to remote host
+      copy:
+        src: install_nginx.sh
+        dest: /tmp/install_nginx.sh
+        mode: "u+rwx,g+rx,o+rx"
+
+    - name: Execute script on remote host
+      command: "/tmp/install_nginx.sh" 
