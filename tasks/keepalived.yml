@@ -1,0 +1,28 @@
+- name: install keepalived 
+  hosts: all
+  become: true
+  remote_user: root
+  vars_files:
+      - ../vars/vars.yml
+  tasks:
+  - name: Install Keepalived
+    apt:
+      name: keepalived
+      state: latest
+  - name: Configure Keepalived
+    template:
+      src: ../template/keepalived.conf.j2
+      dest: /etc/keepalived/keepalived.conf
+    notify: restart keepalived
+  - name: chk_nginx
+    template: 
+      src: ../template/chk_nginx.j2
+      dest: /usr/local/bin/chk_nginx
+  - name: execute perm chk_nginx
+    shell: chmod +x /usr/local/bin/chk_nginx
+
+  handlers:
+    - name: restart keepalived
+      service:
+        name: keepalived
+        state: restarted
