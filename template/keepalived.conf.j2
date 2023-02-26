@@ -1,0 +1,25 @@
+vrrp_script chk_nginx {
+    script "killall -0 nginx"
+    interval 2
+    weight 2
+}
+
+vrrp_instance {{ float_ip }} {
+    interface {{ interface }}  
+    virtual_router_id {{ virtual_router_id }}
+    {% if ansible_hostname == frist_nodename %}   state MASTER {% else %} state BACKUP {% endif %}
+
+    {% if ansible_hostname == frist_nodename %}    priority 150    {% else %} priority 140 {% endif %}
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass secret
+    }
+    virtual_ipaddress {
+        {{ float_ip }}
+    }
+    track_script {
+        path /usr/local/bin/chk_nginx
+        chk_nginx
+    }
+}
