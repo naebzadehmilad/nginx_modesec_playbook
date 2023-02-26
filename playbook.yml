@@ -1,0 +1,8 @@
+- hosts: nginx 
+  remote_user: root
+- name: install-keepalived 
+  import_playbook: tasks/keepalived.yml
+- name: add-hosts 
+  import_playbook: tasks/addhosts.yml
+- name: install-nginx-modesec 
+  import_playbook: tasks/nginx_modesec.yml
