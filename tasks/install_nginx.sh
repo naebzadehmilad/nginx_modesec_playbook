@@ -4,7 +4,7 @@ repo="deb http://ppa.launchpad.net/ondrej/nginx-mainline/ubuntu focal main #### 
 source_path=/opt/nginx_src
 modesecurity_path=/opt/nginx_src/mode_security
 nginx_connector=/opt/nginx_src/mode_security_connector
-nginx_version=nginx-1.21.6
+nginx_version=nginx-1.23.3
 isInFile=$(cat /etc/nginx/nginx.conf | grep -c "ngx_http_modsecurity_module.so")
 BARONE='###########################################################################'
 
